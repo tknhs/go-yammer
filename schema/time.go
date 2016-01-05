@@ -2,9 +2,11 @@ package schema
 
 import "time"
 
-type Time time.Time
+type Time struct {
+	time.Time
+}
 
-func (t Time) UnmarshalJSON(b []byte) error {
+func (t *Time) UnmarshalJSON(b []byte) error {
 	const shortForm = "\"2006/01/02 15:04:05 -0700\"" // yyyymmdd date format
 
 	parse, err := time.Parse(shortForm, string(b))
@@ -12,6 +14,6 @@ func (t Time) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	t = Time(parse)
+	*t = Time{parse}
 	return nil
 }
