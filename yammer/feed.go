@@ -10,8 +10,13 @@ import (
 	"github.com/bmorton/go-yammer/schema"
 )
 
-func (c *Client) GroupFeed(id int) (*schema.MessageFeed, error) {
-	url := fmt.Sprintf("%s/api/v1/messages/in_group/%d.json", c.baseURL, id)
+func (c *Client) GroupFeed(id int, olderThanId int) (*schema.MessageFeed, error) {
+	var url string
+	if olderThanId == 0 {
+		url = fmt.Sprintf("%s/api/v1/messages/in_group/%d.json", c.baseURL, id)
+	} else {
+		url = fmt.Sprintf("%s/api/v1/messages/in_group/%d.json?older_than=%d", c.baseURL, id, olderThanId)
+	}
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return &schema.MessageFeed{}, err
