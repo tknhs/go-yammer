@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/bmorton/go-yammer/schema"
+	"github.com/tknhs/go-yammer/schema"
 )
 
 func (c *Client) GroupFeed(id int, olderThanId int) (*schema.MessageFeed, error) {

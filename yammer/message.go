@@ -8,13 +8,14 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/bmorton/go-yammer/schema"
+	"github.com/tknhs/go-yammer/schema"
 )
 
 type CreateMessageParams struct {
 	Body        string `json:"body"`
 	GroupId     int    `json:"group_id"`
 	RepliedToId int    `json:"replied_to_id"`
+	Cc          string `json:"cc"`
 }
 
 func (c *Client) PostMessage(payload *CreateMessageParams) (*schema.Message, error) {
